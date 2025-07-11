@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Car Sales - Lamborghini, BMW, Mercedes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-logo i {
+    margin-right: 10px;
+    color: #ff6b35;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ff6b35;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    flex: 1;
+    padding: 0 4rem;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: #ff6b35;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.cta-button:hover {
+    background: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+}
+
+.hero-image {
+    flex: 1;
+    position: relative;
+    height: 100vh;
+}
+
+.car-slider {
+    position: relative;
+    height: 100%;
+}
+
+.car-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.car-slide.active {
+    opacity: 1;
+}
+
+.car-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px 0 0 20px;
+}
+
+/* Cars Section */
+.cars-section {
+    padding: 5rem 0;
+    background: #f8f9fa;
+}
+
+.cars-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #333;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.8rem 1.5rem;
+    border: 2px solid #ff6b35;
+    background: transparent;
+    color: #ff6b35;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #ff6b35;
+    color: #fff;
+}
+
+.cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.car-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.car-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.car-card.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.car-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+}
+
+.car-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.car-card:hover .car-image img {
+    transform: scale(1.1);
+}
+
+.car-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.car-card:hover .car-overlay {
+    opacity: 1;
+}
+
+.view-details-btn {
+    padding: 0.8rem 1.5rem;
+    background: #ff6b35;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.view-details-btn:hover {
+    background: #e55a2b;
+    transform: scale(1.05);
+}
+
+.car-info {
+    padding: 1.5rem;
+}
+
+.car-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.car-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ff6b35;
+    margin-bottom: 1rem;
+}
+
+.car-specs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.car-specs span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.car-specs i {
+    color: #ff6b35;
+}
+
+.buy-now-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.buy-now-btn:hover {
+    background: #ff6b35;
+    transform: translateY(-2px);
+}
+
+/* About Section */
+.about-section {
+    padding: 5rem 0;
+    background: #fff;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.about-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+}
+
+.features {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.feature i {
+    font-size: 1.5rem;
+    color: #ff6b35;
+    margin-top: 0.2rem;
+}
+
+.feature h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.feature p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.about-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 5rem 0;
+    background: #f8f9fa;
+}
+
+.contact-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #333;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    color: #ff6b35;
+    margin-top: 0.2rem;
+}
+
+.contact-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.contact-item p {
+    color: #666;
+}
+
+.contact-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #ff6b35;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #ff6b35;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #e55a2b;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    background: #333;
+    color: #fff;
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    color: #ff6b35;
+}
+
+.footer-section p {
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-links a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #ff6b35;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: #e55a2b;
+    transform: translateY(-2px);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ff6b35;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #555;
+    color: #ccc;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close:hover {
+    color: #ff6b35;
+}
+
+.modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+
+.modal-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 15px 0 0 15px;
+}
+
+.modal-info {
+    padding: 2rem;
+}
+
+.modal-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.modal-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff6b35;
+    margin-bottom: 1.5rem;
+}
+
+.modal-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-specs span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+}
+
+.modal-specs i {
+    color: #ff6b35;
+}
+
+.modal-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.modal-buy-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #ff6b35;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.modal-buy-btn:hover {
+    background: #e55a2b;
+    transform: translateY(-2px);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 2rem 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 0;
+    }
+
+    .hero-content {
+        padding: 0 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-image {
+        height: 50vh;
+    }
+
+    .car-slide img {
+        border-radius: 15px;
+    }
+
+    .cars-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .modal-body {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-image img {
+        border-radius: 15px 15px 0 0;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .cars-section h2,
+    .about-text h2,
+    .contact-section h2 {
+        font-size: 2rem;
+    }
+
+    .car-card {
+        margin: 0 10px;
+    }
+} 
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-car"></i>
+                <span>Luxury Motors</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#cars" class="nav-link">Cars</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Premium Luxury Cars</h1>
+            <p>Discover the finest collection of Lamborghini, BMW, and Mercedes vehicles</p>
+            <a href="#cars" class="cta-button">Explore Cars</a>
+        </div>
+        <div class="hero-image">
+            <div class="car-slider">
+                <div class="car-slide active">
+                    <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Lamborghini">
+                </div>
+                <div class="car-slide">
+                    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="BMW">
+                </div>
+                <div class="car-slide">
+                    <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Mercedes">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cars Section -->
+    <section id="cars" class="cars-section">
+        <div class="container">
+            <h2>Our Premium Collection</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Brands</button>
+                <button class="filter-btn" data-filter="lamborghini">Lamborghini</button>
+                <button class="filter-btn" data-filter="bmw">BMW</button>
+                <button class="filter-btn" data-filter="mercedes">Mercedes</button>
+            </div>
+            
+            <div class="cars-grid">
+                <!-- Lamborghini Cars -->
+                <div class="car-card" data-brand="lamborghini">
+                    <div class="car-image">
+                        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Lamborghini Huracán">
+                        <div class="car-overlay">
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3>Lamborghini Huracán</h3>
+                        <p class="car-price">$250,000</p>
+                        <div class="car-specs">
+                            <span><i class="fas fa-tachometer-alt"></i> 610 HP</span>
+                            <span><i class="fas fa-clock"></i> 3.2s 0-60</span>
+                            <span><i class="fas fa-road"></i> 202 MPH</span>
+                        </div>
+                        <button class="buy-now-btn">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="car-card" data-brand="lamborghini">
+                    <div class="car-image">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Lamborghini Aventador">
+                        <div class="car-overlay">
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3>Lamborghini Aventador</h3>
+                        <p class="car-price">$450,000</p>
+                        <div class="car-specs">
+                            <span><i class="fas fa-tachometer-alt"></i> 700 HP</span>
+                            <span><i class="fas fa-clock"></i> 2.8s 0-60</span>
+                            <span><i class="fas fa-road"></i> 217 MPH</span>
+                        </div>
+                        <button class="buy-now-btn">Buy Now</button>
+                    </div>
+                </div>
+
+                <!-- BMW Cars -->
+                <div class="car-card" data-brand="bmw">
+                    <div class="car-image">
+                        <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="BMW M3">
+                        <div class="car-overlay">
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3>BMW M3 Competition</h3>
+                        <p class="car-price">$85,000</p>
+                        <div class="car-specs">
+                            <span><i class="fas fa-tachometer-alt"></i> 503 HP</span>
+                            <span><i class="fas fa-clock"></i> 3.8s 0-60</span>
+                            <span><i class="fas fa-road"></i> 180 MPH</span>
+                        </div>
+                        <button class="buy-now-btn">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="car-card" data-brand="bmw">
+                    <div class="car-image">
+                        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="BMW M5">
+                        <div class="car-overlay">
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3>BMW M5 CS</h3>
+                        <p class="car-price">$142,995</p>
+                        <div class="car-specs">
+                            <span><i class="fas fa-tachometer-alt"></i> 627 HP</span>
+                            <span><i class="fas fa-clock"></i> 2.9s 0-60</span>
+                            <span><i class="fas fa-road"></i> 190 MPH</span>
+                        </div>
+                        <button class="buy-now-btn">Buy Now</button>
+                    </div>
+                </div>
+
+                <!-- Mercedes Cars -->
+                <div class="car-card" data-brand="mercedes">
+                    <div class="car-image">
+                        <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Mercedes AMG GT">
+                        <div class="car-overlay">
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3>Mercedes-AMG GT</h3>
+                        <p class="car-price">$130,000</p>
+                        <div class="car-specs">
+                            <span><i class="fas fa-tachometer-alt"></i> 469 HP</span>
+                            <span><i class="fas fa-clock"></i> 3.7s 0-60</span>
+                            <span><i class="fas fa-road"></i> 196 MPH</span>
+                        </div>
+                        <button class="buy-now-btn">Buy Now</button>
+                    </div>
+                </div>
+
+                <div class="car-card" data-brand="mercedes">
+                    <div class="car-image">
+                        <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Mercedes S-Class">
+                        <div class="car-overlay">
+                            <button class="view-details-btn">View Details</button>
+                        </div>
+                    </div>
+                    <div class="car-info">
+                        <h3>Mercedes S-Class</h3>
+                        <p class="car-price">$120,000</p>
+                        <div class="car-specs">
+                            <span><i class="fas fa-tachometer-alt"></i> 429 HP</span>
+                            <span><i class="fas fa-clock"></i> 4.9s 0-60</span>
+                            <span><i class="fas fa-road"></i> 155 MPH</span>
+                        </div>
+                        <button class="buy-now-btn">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Luxury Motors</h2>
+                    <p>We specialize in providing the finest luxury vehicles from the world's most prestigious brands. Our commitment to excellence and customer satisfaction has made us the premier destination for luxury car enthusiasts.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Certified Pre-Owned</h3>
+                            <p>All our vehicles undergo rigorous inspection and certification processes.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-tools"></i>
+                            <h3>Expert Service</h3>
+                            <p>Our certified technicians ensure your vehicle maintains peak performance.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-handshake"></i>
+                            <h3>Financing Options</h3>
+                            <p>Flexible financing solutions tailored to your needs and budget.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Luxury Car Dealership">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Address</h3>
+                            <p>123 Luxury Drive, Beverly Hills, CA 90210</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p>info@luxurymotors.com</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" name="phone" placeholder="Your Phone">
+                    </div>
+                    <div class="form-group">
+                        <select id="interest" name="interest">
+                            <option value="">Select Car Brand</option>
+                            <option value="lamborghini">Lamborghini</option>
+                            <option value="bmw">BMW</option>
+                            <option value="mercedes">Mercedes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Your Message" rows="5"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Luxury Motors</h3>
+                    <p>Your premier destination for luxury vehicles.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#cars">Cars</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Brands</h3>
+                    <ul>
+                        <li><a href="#lamborghini">Lamborghini</a></li>
+                        <li><a href="#bmw">BMW</a></li>
+                        <li><a href="#mercedes">Mercedes</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Luxury Motors. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Car Details -->
+    <div id="carModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image">
+                    <img id="modalCarImage" src="" alt="Car">
+                </div>
+                <div class="modal-info">
+                    <h2 id="modalCarTitle"></h2>
+                    <p class="modal-price" id="modalCarPrice"></p>
+                    <div class="modal-specs" id="modalCarSpecs"></div>
+                    <p class="modal-description" id="modalCarDescription"></p>
+                    <button class="modal-buy-btn">Purchase This Vehicle</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const carCards = document.querySelectorAll('.car-card');
+const modal = document.getElementById('carModal');
+const closeModal = document.querySelector('.close');
+const viewDetailsBtns = document.querySelectorAll('.view-details-btn');
+const buyNowBtns = document.querySelectorAll('.buy-now-btn');
+const contactForm = document.querySelector('.contact-form');
+const carSlides = document.querySelectorAll('.car-slide');
+
+// Car data for modal
+const carData = {
+    'Lamborghini Huracán': {
+        price: '$250,000',
+        specs: [
+            { icon: 'fas fa-tachometer-alt', text: '610 HP' },
+            { icon: 'fas fa-clock', text: '3.2s 0-60' },
+            { icon: 'fas fa-road', text: '202 MPH' }
+        ],
+        description: 'The Lamborghini Huracán represents the perfect balance of performance and everyday usability. With its naturally aspirated V10 engine and advanced aerodynamics, it delivers an unparalleled driving experience.',
+        image: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+    },
+    'Lamborghini Aventador': {
+        price: '$450,000',
+        specs: [
+            { icon: 'fas fa-tachometer-alt', text: '700 HP' },
+            { icon: 'fas fa-clock', text: '2.8s 0-60' },
+            { icon: 'fas fa-road', text: '217 MPH' }
+        ],
+        description: 'The Aventador is Lamborghini\'s flagship supercar, featuring a monstrous V12 engine and cutting-edge technology. It represents the pinnacle of automotive engineering and design.',
+        image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+    },
+    'BMW M3 Competition': {
+        price: '$85,000',
+        specs: [
+            { icon: 'fas fa-tachometer-alt', text: '503 HP' },
+            { icon: 'fas fa-clock', text: '3.8s 0-60' },
+            { icon: 'fas fa-road', text: '180 MPH' }
+        ],
+        description: 'The BMW M3 Competition combines luxury with high performance. Its twin-turbo inline-6 engine and precision engineering make it the ultimate driving machine for enthusiasts.',
+        image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+    },
+    'BMW M5 CS': {
+        price: '$142,995',
+        specs: [
+            { icon: 'fas fa-tachometer-alt', text: '627 HP' },
+            { icon: 'fas fa-clock', text: '2.9s 0-60' },
+            { icon: 'fas fa-road', text: '190 MPH' }
+        ],
+        description: 'The BMW M5 CS is the most powerful production car BMW has ever made. With its carbon fiber components and track-focused design, it delivers exceptional performance.',
+        image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+    },
+    'Mercedes-AMG GT': {
+        price: '$130,000',
+        specs: [
+            { icon: 'fas fa-tachometer-alt', text: '469 HP' },
+            { icon: 'fas fa-clock', text: '3.7s 0-60' },
+            { icon: 'fas fa-road', text: '196 MPH' }
+        ],
+        description: 'The Mercedes-AMG GT combines luxury and performance in perfect harmony. Its handcrafted AMG engine and sophisticated design make it a true grand tourer.',
+        image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+    },
+    'Mercedes S-Class': {
+        price: '$120,000',
+        specs: [
+            { icon: 'fas fa-tachometer-alt', text: '429 HP' },
+            { icon: 'fas fa-clock', text: '4.9s 0-60' },
+            { icon: 'fas fa-road', text: '155 MPH' }
+        ],
+        description: 'The Mercedes S-Class is the epitome of luxury and technology. With its innovative features and unparalleled comfort, it sets the standard for premium sedans.',
+        image: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80'
+    }
+};
+
+// Mobile Navigation Toggle
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+    });
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Car Filtering
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active class from all buttons
+        filterBtns.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        carCards.forEach(card => {
+            const brand = card.getAttribute('data-brand');
+            
+            if (filter === 'all' || brand === filter) {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.classList.remove('hidden');
+                }, 100);
+            } else {
+                card.classList.add('hidden');
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+            }
+        });
+    });
+});
+
+// Modal Functionality
+function openModal(carName) {
+    const car = carData[carName];
+    if (!car) return;
+    
+    // Update modal content
+    document.getElementById('modalCarImage').src = car.image;
+    document.getElementById('modalCarTitle').textContent = carName;
+    document.getElementById('modalCarPrice').textContent = car.price;
+    
+    // Update specs
+    const specsContainer = document.getElementById('modalCarSpecs');
+    specsContainer.innerHTML = '';
+    car.specs.forEach(spec => {
+        const specElement = document.createElement('span');
+        specElement.innerHTML = `<i class="${spec.icon}"></i> ${spec.text}`;
+        specsContainer.appendChild(specElement);
+    });
+    
+    document.getElementById('modalCarDescription').textContent = car.description;
+    
+    // Show modal
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+// View Details Button Click
+viewDetailsBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const carCard = btn.closest('.car-card');
+        const carName = carCard.querySelector('h3').textContent;
+        openModal(carName);
+    });
+});
+
+// Buy Now Button Click
+buyNowBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const carCard = btn.closest('.car-card');
+        const carName = carCard.querySelector('h3').textContent;
+        const carPrice = carCard.querySelector('.car-price').textContent;
+        
+        // Show purchase confirmation
+        if (confirm(`Are you sure you want to purchase the ${carName} for ${carPrice}?`)) {
+            alert('Thank you for your purchase! Our team will contact you shortly.');
+        }
+    });
+});
+
+// Close Modal
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Contact Form Submission
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(contactForm);
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const phone = formData.get('phone');
+    const interest = formData.get('interest');
+    const message = formData.get('message');
+    
+    // Simple validation
+    if (!name || !email || !message) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+    
+    // Simulate form submission
+    alert('Thank you for your message! We will get back to you soon.');
+    contactForm.reset();
+});
+
+// Hero Car Slider
+let currentSlide = 0;
+
+function nextSlide() {
+    carSlides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % carSlides.length;
+    carSlides[currentSlide].classList.add('active');
+}
+
+// Auto-advance slides every 4 seconds
+setInterval(nextSlide, 4000);
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+    } else {
+        navbar.style.background = 'rgba(0, 0, 0, 0.9)';
+    }
+});
+
+// Intersection Observer for animations
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+// Observe car cards for animation
+carCards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(card);
+});
+
+// Form validation
+const formInputs = document.querySelectorAll('.contact-form input, .contact-form textarea, .contact-form select');
+
+formInputs.forEach(input => {
+    input.addEventListener('blur', () => {
+        if (input.hasAttribute('required') && !input.value) {
+            input.style.borderColor = '#ff4444';
+        } else {
+            input.style.borderColor = '#e9ecef';
+        }
+    });
+    
+    input.addEventListener('input', () => {
+        if (input.value) {
+            input.style.borderColor = '#ff6b35';
+        }
+    });
+});
+
+// Price formatting function
+function formatPrice(price) {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(price);
+}
+
+// Add loading animation
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+});
+
+// Add some interactive effects
+document.addEventListener('DOMContentLoaded', () => {
+    // Add hover effects to car cards
+    carCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // Add click effects to buttons
+    const buttons = document.querySelectorAll('button, .cta-button');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Create ripple effect
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+});
+
+// Add CSS for ripple effect
+const style = document.createElement('style');
+style.textContent = `
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(0);
+        animation: ripple-animation 0.6s linear;
+        pointer-events: none;
+    }
+    
+    @keyframes ripple-animation {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    
+    button, .cta-button {
+        position: relative;
+        overflow: hidden;
+    }
+`;
+document.head.appendChild(style); 
+    </script>
+</body>
+</html> 
